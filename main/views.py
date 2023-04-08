@@ -9,24 +9,26 @@ from .models import Imag
 from mmseg.apis import inference_model, init_model, show_result_pyplot
 from segment_anything import sam_model_registry, SamPredictor, SamAutomaticMaskGenerator
 
-
 # Create your views here.
 
 # model initiation
 
 ## pspnet
-config_file = "main/static/mmsegmentation/configs/pspnet/pspnet_r101-d8_4xb4-80k_pascal-context-59-480x480.py"
-ckpt_path = "main/static/checkpoints/pspnet_r101-d8_480x480_80k_pascal_context_59_20210416_114418-fa6caaa2.pth"
-model = init_model(config=config_file, checkpoint=ckpt_path, device="cpu")
+# config_file = "main/static/mmsegmentation/configs/pspnet/pspnet_r101-d8_4xb4-80k_pascal-context-59-480x480.py"
+# ckpt_path = "main/static/checkpoints/pspnet_r101-d8_480x480_80k_pascal_context_59_20210416_114418-fa6caaa2.pth"
+# model = init_model(config=config_file, checkpoint=ckpt_path, device="cpu")
 
 
 ## sam
+print("Loading SAM model...")
 sam_checkpoint = "main/static/checkpoints/sam_vit_l_0b3195.pth"
 model_type = "vit_l"
 device = "cpu"
 sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
 sam.to(device=device)
 predictor = SamPredictor(sam)
+print("Loaded SAM")
+
 
 # PASCAL Context 
 CLASSES = ['background', 'aeroplane', 'bag', 'bed', 'bedclothes', 'bench',
@@ -103,36 +105,48 @@ def sam_segment(request, pk):
     img_rel_path = img.image.url    
     img_abs_path = f".{img_rel_path}"
     
-    result = inference_model(model, img_abs_path)
-    mask = result.pred_sem_seg.data
-    
+    print("Transforming image")
     image = cv2.imread(img_abs_path)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     predictor.set_image(image)
+    print("Transforming image done")
     
+    
+    input_point = np.array([[200,400]])
+    input_label = np.array([1])
+    
+    print("Predicting...")
+    mask, scores, logits = predictor.predict(
+        point_coords=input_point,
+        point_labels=input_label,
+        multimask_output=False,
+    )
     mask = np.squeeze(mask, axis=0)
+    
+    mask_55 = np.zeros_like(mask)
+    mask_55[mask == True] = 1
+    
+    # Create a new figure
+    fig, ax = plt.subplots()
 
-    # Extract the elements of the mask tensor with value 56
-    mask_56 = np.zeros_like(mask)
-    mask_56[mask == 56] = 1
+    # Plot the image
+    ax.imshow(img)
 
-    # Convert the image tensor and mask to PIL images
-    image = Image.fromarray(image)
-    mask_image = Image.fromarray((mask_56 * 255).astype(np.uint8), mode='L')
+    # wall color
+    color = (255, 0, 255)
+    colors = [(0, 0, 0), color]
+    cmap = mcolors.ListedColormap(colors)
 
-    # Resize the mask image to match the size of the original image
-    mask_image = mask_image.resize(image.size)
-
-    # Define the color to use for the mask (green in this case)
-    mask_color = (0, 255, 0)
-
-    # Blend the image and mask using the mask color
-    image = Image.composite(image, Image.new('RGB', image.size, mask_color), mask_image).astype(np.uint8)
+    # Plot the mask on top of the image
+    masked_image = cmap(mask_55)
+    masked_image = masked_image[:,:,:3]
+    ax.imshow(masked_image, alpha=0.5)
+    ax.set_axis_off()
 
     # Show the image
     fname = os.path.basename(img_abs_path)
-    fname = fname[:-4] + f"_{mask_color}.jpg"
+    fname = fname.split('.')[0] + f"_{color}.{fname.split('.')[1]}"
     fname = os.path.join("images", "results", fname)
-    image.save(fname)
+    plt.savefig(fname)
 
     return render(request, 'main/decor.html', {'img': img})
