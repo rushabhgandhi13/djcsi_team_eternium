@@ -120,7 +120,7 @@
                     <p>Please select a colour</p>
                     <label for="select-state">Search a colour: </label>
                 
-                    <select class="selectpicker des" data-show-subtext="false" data-live-search="true" style="-webkit-appearance: none;" id="select-state" placeholder="Pick a state...">
+                    <select name="col1" class="selectpicker des" data-show-subtext="false" data-live-search="true" style="-webkit-appearance: none;" id="select-state" placeholder="Pick a state...">
                         <option value="">Select a color...</option>
                         <option value="0,0,0">black</option>
                 <option value="192,192,192">silver</option>
@@ -288,8 +288,11 @@
                       </select>
                       <p>Or</p>
 
-                      <button>Select a colour</button>
-
+                      <label>Select color: </label>
+                      <input type="color" name="color" />
+                      <br>
+                      <br>
+                      <button class="btn btn-outline-danger" type="sumbit">Apply</button>
 
                 
                 

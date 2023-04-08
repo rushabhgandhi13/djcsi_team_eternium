@@ -36,8 +36,13 @@ def home(request):
 
 def decor(request, pk):
     img=Imag.objects.get(img_id=pk)
-    # print(img.image)
-    # print(img.image.url)
+    if request.method == "POST":
+        color=str(request.POST.get('color'))
+        final=[]
+        for i in (0, 2, 4):
+            decimal = int(color[i+1:i+3], 16)
+            final.append(decimal)
+        return redirect('decor', pk=pk)
     return render(request, 'main/decor.html', {'img': img})
 
 
