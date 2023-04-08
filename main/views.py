@@ -1,5 +1,6 @@
 import os
 import cv2
+import random
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
@@ -123,8 +124,8 @@ def sam_segment(request, pk):
     
     w, h = image.shape[0], image.shape[1]
     print(image.shape[0])
-    print(points)
-    p = [[(w /700) * i.x, (h/700) *i.y] for i in points]
+    print([[i.x, i.y] for i in points])
+    p = [[(h/700) * i.x, (w/700) *i.y] for i in points]
     print(p)
     # Create a new figure
     fig, ax = plt.subplots()
@@ -148,7 +149,10 @@ def sam_segment(request, pk):
         mask_55[mask == True] = 255
 
         # wall color
-        color = (255, 0, 255)
+        red = random.randint(0, 255)
+        green = random.randint(0, 255)
+        blue = random.randint(0, 255)
+        color = (red, green, blue)
         colors = [(0, 0, 0), color]
         cmap = mcolors.ListedColormap(colors)
 
