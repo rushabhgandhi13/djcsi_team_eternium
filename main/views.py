@@ -13,4 +13,6 @@ def home(request):
 
 def decor(request, pk):
     img=Imag.objects.get(img_id=pk)
+    # print(img.image)
+    # print(img.image.url)
     return render(request, 'main/decor.html', {'img': img})
