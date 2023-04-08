@@ -147,8 +147,11 @@
                 {% csrf_token %}
               <div class="input-div files">
                 <p style="display: flex; justify-content: center">Drag & drop photos here or Browse</p>
-                <input type="file" onchange="updateFiles()" class="file" accept="image/jpeg, image/png, image/jpg" name="roomimage" required>
+                <input type="file" onchange="updateFiles(event)" class="file" accept="image/jpeg, image/png, image/jpg" name="roomimage" required>
             </div>
+            <div class="preview">
+              <img id="file-ip-1-preview">
+            </div>           
             <br>
             <div class="container " style="display:flex; justify-content: center;">
             <button class="btn btn-outline-danger" type="sumbit">Upload image</button>
@@ -262,7 +265,7 @@ $(document).ready(function () {
       });
   });
 
-  function updateFiles() {
+  function updateFiles(event) {
     var fileNames = [];
     var file = document.getElementById("file");
     var fileList = document.getElementById("fileList");
@@ -286,6 +289,13 @@ $(document).ready(function () {
       div.innerHTML = fileNames.join(", ");
       document.getElementById("fileList").appendChild(div);
     }
+  }
+
+  if(event.target.files.length > 0){
+    var src = URL.createObjectURL(event.target.files[0]);
+    var preview = document.getElementById("file-ip-1-preview");
+    preview.src = src;
+    preview.style.display = "block";
   }
   </script>
 
