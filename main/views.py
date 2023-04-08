@@ -112,7 +112,7 @@ def sam_segment(request, pk):
     print("Transforming image done")
     
     
-    input_point = np.array([[200,400]])
+    input_point = np.array([[689, 296]])
     input_label = np.array([1])
     
     print("Predicting...")
@@ -130,7 +130,7 @@ def sam_segment(request, pk):
     fig, ax = plt.subplots()
 
     # Plot the image
-    ax.imshow(img)
+    ax.imshow(image)
 
     # wall color
     color = (255, 0, 255)
@@ -147,6 +147,7 @@ def sam_segment(request, pk):
     fname = os.path.basename(img_abs_path)
     fname = fname.split('.')[0] + f"_{color}.{fname.split('.')[1]}"
     fname = os.path.join("images", "results", fname)
+    print(fname)
     plt.savefig(fname)
 
     return render(request, 'main/decor.html', {'img': img})

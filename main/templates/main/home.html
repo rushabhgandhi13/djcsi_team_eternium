@@ -284,12 +284,12 @@ $(document).ready(function () {
   }
 
   function clickHotspotImage(event) {
-    var xCoordinate = event.offsetX+205;
-    var yCoordinate = event.offsetY+138;
+    var xCoordinate = event.offsetX;
+    var yCoordinate = event.offsetY;
     coords.push([xCoordinate, yCoordinate]);
     var img = $('<img>');
-    img.css('top', yCoordinate);
-    img.css('left', xCoordinate);
+    img.css('top', yCoordinate+138);
+    img.css('left', xCoordinate+205);
     img.attr('src', '{% static "images/dot.png" %}');
     img.appendTo('#preview');
     img.css("position", "absolute");
