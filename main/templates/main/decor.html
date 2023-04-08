@@ -1,0 +1,442 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="HTML/CSS">
+  <meta name="author" content="Anil">
+  <title>Indecor - Home</title>
+  <link rel="stylesheet" href="{% static 'css/decor.css' %}"> 
+  <link rel="icon" href="{% static 'images/favicon.png' %}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% comment %} <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
+  {% comment %} <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" /> {% endcomment %}
+  </head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+
+  <style>
+    .files input {
+        outline: 2px dashed #92b0b3;
+        border-radius: 10px;
+        outline-offset: 7px;
+        -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+        transition: outline-offset .15s ease-in-out, background-color .15s linear;
+        padding: 30px 225px 30px 35%;
+        text-align: center !important;
+        margin-bottom: 15px;
+        width: 100% !important;
+    }
+    .files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+        -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+        transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+     }
+    .files{ position:relative}
+    .files:after {  pointer-events: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 50px;
+        right: 0;
+        height: 56px;
+        content: "";
+        background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+        display: block;
+        margin: 0 auto;
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+    .color input{ background-color:#f1f1f1;}
+    .files:before {
+        position: absolute;
+        bottom: 10px;
+        left: 0;  pointer-events: none;
+        width: 100%;
+        right: 0;
+        height: 57px;
+        /* content: " or drag it here. "; */
+        display: block;
+        margin: 0 auto;
+        color: #2ea591;
+        font-weight: 600;
+        text-transform: capitalize;
+        text-align: center;
+    }
+
+.logo_image{
+    width: 80%;
+    height: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
+     margin-bottom: 10%;
+}
+
+
+
+    </style>
+</head>
+<body>
+  <div class="header" id="topheader">
+    <nav class="navbar navbar-expand-lg navbar-dark"> 
+        <div class="container text-uppercase p-2">    
+        <a class="navbar-brand font-weight-bold text-white" href="#" >InDecor</a>
+      </div>
+    </nav>
+   
+  </div>
+
+  <!-- ***************** header part end ************************** -->
+<br><br><br>
+
+  <!-- ********************* offer section starts ****************************** -->
+
+  
+
+  <section class="serviceoffers" id="servicediv">
+    <div class="container headings text-center">
+      <h1 class="text-center font-weight-bold">Design your space</h1>
+    </div>
+    <div class="container">
+      <div class="row">
+
+
+        <div class="col-lg-6 col-md-6 col-12 servicediv">
+            <div class="container" >
+            <img style="width:100%" src="{{img.image.url}}" />
+            </div>
+            </div>
+
+
+        <div class="col-lg-6 col-md-6 col-12 servicediv">
+            <div class="container" >
+                <div class="form-group">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>Please select a colour</p>
+                    <label for="select-state">Search a colour: </label>
+                
+                    <select class="selectpicker des" data-show-subtext="false" data-live-search="true" style="-webkit-appearance: none;" id="select-state" placeholder="Pick a state...">
+                        <option value="">Select a color...</option>
+                        <option value="0,0,0">black</option>
+                <option value="192,192,192">silver</option>
+                <option value="128,128,128">gray</option>
+                <option value="255,255,255">white</option>
+                <option value="128,0,0">maroon</option>
+                <option value="255,0,0">red</option>
+                <option value="128,0,128 ">purple</option>
+                <option value="255,0,255">fuchsia</option>
+                <option value="0,128,0">green</option>
+                <option value="0,255,0">lime</option>
+                <option value="128,128,0">olive</option>
+                <option value="255,255,0">yellow</option>
+                <option value="0,0,128">navy</option>
+                <option value="0,0,255">blue</option>
+                <option value="0,128,128">teal</option>
+                <option value="0,255,255">aqua</option>
+                <option value="240,248,255">aliceblue</option>
+                <option value="250,235,215">antiquewhite</option>
+                <option value="0,255,255">aqua</option>
+                <option value="127,255,212">aquamarine</option>
+                <option value="240,255,255">azure</option>
+                <option value="245,245,220">beige</option>
+                <option value="255,228,196">bisque</option>
+                <option value="0,0,0">black</option>
+                <option value="255,235,205">blanchedalmond</option>
+                <option value="0,0,255">blue</option>
+                <option value="138,43,226">blueviolet</option>
+                <option value="165,42,42">brown</option>
+                <option value="222,184,135">burlywood</option>
+                <option value="95,158,160">cadetblue</option>
+                <option value="127,255,0">chartreuse</option>
+                <option value="210,105,30">chocolate</option>
+                <option value="255,127,80">coral</option>
+                <option value="#6495ed	100,149,237">cornfl</option>
+                <option value="255,248,220">cornsilk</option>
+                <option value="220,20,60">crimson</option>
+                <option value="0,255,255">cyan</option>
+                <option value="0,0,139">darkblue</option>
+                <option value="0,139,139">darkcyan</option>
+                <option value="184,134,11">darkgoldenrod</option>
+                <option value="169,169,169">darkgray</option>
+                <option value="0,100,0">darkgreen</option>
+                <option value="169,169,169">darkgrey</option>
+                <option value="189,183,107">darkkhaki</option>
+                <option value="139,0,139">darkmagenta</option>
+                <option value="85,107,47">darkolivegreen</option>
+                <option value="255,140,0">darkorange</option>
+                <option value="153,50,204">darkorchid</option>
+                <option value="139,0,0">darkred</option>
+                <option value="233,150,122">darksalmon</option>
+                <option value="143,188,143">darkseagreen</option>
+                <option value="72,61,139">darkslateblue</option>
+                <option value="47,79,79">darkslategray</option>
+                <option value="47,79,79">darkslategrey</option>
+                <option value="0,206,209">darkturquoise</option>
+                <option value="148,0,211">darkviolet</option>
+                <option value="255,20,147">deeppink</option>
+                <option value="0,191,255">deepskyblue</option>
+                <option value="105,105,105">dimgray</option>
+                <option value="105,105,105">dimgrey</option>
+                <option value="30,144,255">dodgerblue</option>
+                <option value="178,34,34">firebrick</option>
+                <option value="255,250,240">floralwhite</option>
+                <option value="34,139,34">forestgreen</option>
+                <option value="255,0,255">fuchsia</option>
+                <option value="220,220,220">gainsboro</option>
+                <option value="248,248,255">ghostwhite</option>
+                <option value="255,215,0">gold</option>
+                <option value="218,165,32">goldenrod</option>
+                <option value="128,128,128">gray</option>
+                <option value="0,128,0">green</option>
+                <option value="173,255,47">greenyellow</option>
+                <option value="128,128,128">grey</option>
+                <option value="240,255,240">honeydew</option>
+                <option value="255,105,180">hotpink</option>
+                <option value="205,92,92">indianred</option>
+                <option value="75,0,130">indigo</option>
+                <option value="255,255,240">ivory</option>
+                <option value="240,230,140">khaki</option>
+                <option value="230,230,250">lavender</option>
+                <option value="255,240,245">lavenderblush</option>
+                <option value="124,252,0">lawngreen</option>
+                <option value="255,250,205">lemonchiffon</option>
+                <option value="173,216,230">lightblue</option>
+                <option value="240,128,128">lightcoral</option>
+                <option value="224,255,255">lightcyan</option>
+                <option value="250,250,210">lightgoldenrodyellow</option>
+                <option value="211,211,211">lightgray</option>
+                <option value="144,238,144">lightgreen</option>
+                <option value="211,211,211">lightgrey</option>
+                <option value="255,182,193">lightpink</option>
+                <option value="255,160,122">lightsalmon</option>
+                <option value="32,178,170">lightseagreen</option>
+                <option value="135,206,250">lightskyblue</option>
+                <option value="119,136,153">lightslategray</option>
+                <option value="119,136,153">lightslategrey</option>
+                <option value="176,196,222">lightsteelblue</option>
+                <option value="255,255,224">lightyellow</option>
+                <option value="0,255,0">lime</option>
+                <option value="50,205,50">limegreen</option>
+                <option value="250,240,230">linen</option>
+                <option value="255,0,255">magenta</option>
+                <option value="128,0,0">maroon</option>
+                <option value="102,205,170">mediumaquamarine</option>
+                <option value="0,0,205">mediumblue</option>
+                <option value="186,85,211">mediumorchid</option>
+                <option value="147,112,219">mediumpurple</option>
+                <option value="60,179,113">mediumseagreen</option>
+                <option value="123,104,238">mediumslateblue</option>
+                <option value="0,250,154">mediumspringgreen</option>
+                <option value="72,209,204">mediumturquoise</option>
+                <option value="199,21,133">mediumvioletred</option>
+                <option value="25,25,112">midnightblue</option>
+                <option value="245,255,250">mintcream</option>
+                <option value="255,228,225">mistyrose</option>
+                <option value="255,228,181">moccasin</option>
+                <option value="0,0,128">navajowhite</option>
+                <option value="253,245,230">navy</option>
+                <option value="128,128,0">oldlace</option>
+                <option value="107,142,35">olive</option>
+                <option value="255,165,0">olivedrab</option>
+                <option value="255,69,0">orange</option>
+                <option value="255,45,0">orangered</option>
+                <option value="218,112,214">Orchid</option>
+                <option value="238,232,170">Palegoldenrod</option>
+                <option value="152,251,152">Palegreen</option>
+                <option value="175,238,238">Paleturquoise</option>
+                <option value="219,112,147">Palevioletred</option>
+                <option value="255,239,213">Papayawhip</option>
+                <option value="255,218,185">Peachpuff</option>
+                <option value="205,133,63">Peru</option>
+                <option value="255,192,203">Pink</option>
+                <option value="221,160,221">Plum</option>
+                <option value="176,224,230">Powderblue</option>
+                <option value="128,0,128">Purple</option>
+                <option value="255,0,0">Red</option>
+                <option value="188,143,143">Rosybrown</option>
+                <option value="65,105,225">Royalblue</option>
+                <option value="139,69,19">Saddlebrown</option>
+                <option value="250,128,114">Salmon</option>
+                <option value="244,164,96">Sandybrown</option>
+                <option value="46,139,87">Seagreen</option>
+                <option value="255,245,238">Seashell</option>
+                <option value="160,82,45">Sienna</option>
+                <option value="192,192,192">Silver</option>
+                <option value="135,206,235">Skyblue</option>
+                <option value="106,90,205">Slateblue</option>
+                <option value="112,128,144">Slategray</option>
+                <option value="112,128,144">Slategrey</option>
+                <option value="255,250,250">Snow</option>
+                <option value="0,255,127">Springgreen</option>
+                <option value="70,130,180">Steelblue</option>
+                <option value="210,180,140">San</option>
+                <option value="0,128,128">Teal</option>
+                <option value="216,191,216">Thistle</option>
+                <option value="255,99,71">Tomato</option>
+                <option value="64,224,208">Turquoise</option>
+                <option value="238,130,238">Violet</option>
+                <option value="245,222,179">Wheat</option>
+                <option value="255,255,255">White</option>
+                <option value="245,245,245">Whitesmoke</option>
+                <option value="255,255,0">Yellow</option>
+                <option value="154,205,50">Yellowgreen</option>
+                      </select>
+                      <p>Or</p>
+
+                      <button>Select a colour</button>
+
+
+                
+                
+                
+                </form>
+
+
+            </div> 
+            </div>
+            </div>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ********************* offer section ends ****************************** -->
+
+<br><br>
+
+
+  <!-- ********************* footer starts ****************************** -->
+
+    
+      <div class="mt-5 text-center">
+        <p>Copyright &copy;2023 All rights reserved | Team Eternium</p>
+      </div>
+      <div class="scrolltop float-right">
+        <i class="fa fa-arrow-up" onclick="topFunction()" id="myBtn"></i>
+      </div>
+  
+ 
+
+  <!-- ********************* footer ends ****************************** -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> {% endcomment %}
+  {% comment %} <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script> {% endcomment %}
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha256-jDnOKIOq2KNsQZTcBTEnsp76FnfMEttF6AV2DF2fFNE=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js" integrity="sha256-JtQPj/3xub8oapVMaIijPNoM0DHoAtgh/gwFYuN5rik=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+ 
+  <script>
+    
+  $('.count').counterUp({
+    delay:10,
+    time:300
+  })
+  // Get the button:
+  mybutton = document.getElementById("myBtn");
+
+  //When the user scrolls down 20px from the top of the document, show the buttons
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction(){
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+  //When the user clicks on the button, scroll to the top of the document
+  function topFunction(){
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }
+
+  const inputDiv = document.querySelector(".input-div")
+  const input = document.querySelector("input")
+  const output = document.querySelector("output")
+  let imagesArray = []
+  input.addEventListener("change", () => {
+  const files = input.files
+  for (let i = 0; i < files.length; i++) {
+    imagesArray.push(files[i])
+  }
+  displayImages()
+})
+
+inputDiv.addEventListener("drop", () => {
+  e.preventDefault()
+  const files = e.dataTransfer.files
+  for (let i = 0; i < files.length; i++) {
+    if (!files[i].type.match("image")) continue;
+
+    if (imagesArray.every(image => image.name !== files[i].name))
+      imagesArray.push(files[i])
+  }
+  displayImages()
+})
+
+function displayImages() {
+  let images = ""
+  imagesArray.forEach((image, index) => {
+    images += `<div class="image">
+                <img src="${URL.createObjectURL(image)}" alt="image">
+                <span onclick="deleteImage(${index})">&times;</span>
+              </div>`
+  })
+  output.innerHTML = images
+}
+
+function deleteImage(index) {
+  imagesArray.splice(index, 1)
+  displayImages()
+}
+
+$(document).ready(function () {
+      $('select').selectize({
+          sortField: 'text'
+      });
+  });
+
+  function updateFiles() {
+    var fileNames = [];
+    var file = document.getElementById("file");
+    var fileList = document.getElementById("fileList");
+    while (fileList.firstChild) {
+      fileList.firstChild.remove()
+    }
+    if (file.files.length > 0) {  
+      for (var i = 0; i < file.files.length; i++) {
+        fileNames.push(file.files[i].name);
+        // singleFile = file.files[i];
+      }
+      var div = document.createElement("div");
+      div.style.padding = "10px";
+      div.style.background = "rgba(255, 255, 255, 0.29)";
+      div.style.borderRadius = "6px";
+      div.style.boxShadow = "0 4px 30px rgba(0, 0, 0, 0.1)";
+      div.style.backdropFilter = "blur(6.4px)";
+      div.style.webkitBackdropFilter = "blur(6.4px)";
+      div.style.border = "1px solid rgba(255, 255, 255, 0.24)";
+      div.style.marginBottom = "10px";
+      div.innerHTML = fileNames.join(", ");
+      document.getElementById("fileList").appendChild(div);
+    }
+  }
+  </script>
+
+
+
+</body>
+</html>
+
