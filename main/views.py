@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from django.shortcuts import render, redirect
-from PIL import Image
-from .models import Imag
+from PIL import Image, ImageDraw
+from .models import Imag, Point
 from mmseg.apis import inference_model, init_model, show_result_pyplot
 from segment_anything import sam_model_registry, SamPredictor, SamAutomaticMaskGenerator
 
@@ -45,12 +45,19 @@ wall_indx = CLASSES.index("wall") - 1
 
 def home(request):
     if request.method=="POST":
-        print(request.POST.get('coords'))
-        print(request.FILES.get('roomimage'))
-        # img=Imag()
-        # img.image=request.FILES.get('roomimage')
-        # img.save()
-        # return redirect('decor', pk=img.img_id)
+        img=Imag()
+        img.image=request.FILES.get('roomimage')
+        img.save()
+        sPoints = request.POST.get('coords').split('|')
+        coords = [[int(j) for j in i.split(',')] for i in sPoints if len(i) != 0]
+        print(coords)
+        for i in coords:
+            point=Point()
+            point.img_id=img
+            point.x=i[0]
+            point.y=i[1]
+            point.save()
+        return redirect('decor', pk=img.img_id)
     return render(request, 'main/home.html')
 
 def decor(request, pk):
@@ -103,6 +110,7 @@ def segment(request, pk):
 
 
 def sam_segment(request, pk):
+    points = Point.objects.filter(img_id = pk)
     img=Imag.objects.get(img_id=pk)
     img_rel_path = img.image.url    
     img_abs_path = f".{img_rel_path}"
@@ -113,43 +121,55 @@ def sam_segment(request, pk):
     predictor.set_image(image)
     print("Transforming image done")
     
-    
-    input_point = np.array([[689, 296]])
-    input_label = np.array([1])
-    
-    print("Predicting...")
-    mask, scores, logits = predictor.predict(
-        point_coords=input_point,
-        point_labels=input_label,
-        multimask_output=False,
-    )
-    mask = np.squeeze(mask, axis=0)
-    
-    mask_55 = np.zeros_like(mask)
-    mask_55[mask == True] = 1
-    
+    w, h = image.shape[0], image.shape[1]
+    print(image.shape[0])
+    print(points)
+    p = [[(w /700) * i.x, (h/700) *i.y] for i in points]
+    print(p)
     # Create a new figure
     fig, ax = plt.subplots()
 
-    # Plot the image
-    ax.imshow(image)
+    # Plot the image    
+    # ax.imshow(image)
+    pil_image = Image.fromarray(image)
+    for point in p:
+        input_point = np.array([point])
+        input_label = np.array([1])
+        
+        print("Predicting...")
+        mask, scores, logits = predictor.predict(
+            point_coords=input_point,
+            point_labels=input_label,
+            multimask_output=False,
+        )
+        mask = np.squeeze(mask, axis=0)
+        
+        mask_55 = np.zeros_like(mask)
+        mask_55[mask == True] = 255
 
-    # wall color
-    color = (255, 0, 255)
-    colors = [(0, 0, 0), color]
-    cmap = mcolors.ListedColormap(colors)
+        # wall color
+        color = (255, 0, 255)
+        colors = [(0, 0, 0), color]
+        cmap = mcolors.ListedColormap(colors)
 
-    # Plot the mask on top of the image
-    masked_image = cmap(mask_55)
-    masked_image = masked_image[:,:,:3]
-    ax.imshow(masked_image, alpha=0.5)
-    ax.set_axis_off()
+        # Plot the mask on top of the image
+        masked_image = cmap(mask_55)
+        masked_image = masked_image[:,:,:3]
+        
+        draw = ImageDraw.Draw(pil_image)
+        mask_pil = Image.fromarray(mask_55)
+        draw.bitmap((0, 0), mask_pil, fill=color)
+        
+        # ax.imshow(masked_image, alpha=0.5)
+        # ax.set_axis_off()
 
     # Show the image
     fname = os.path.basename(img_abs_path)
     fname = fname.split('.')[0] + f"_{color}.{fname.split('.')[1]}"
     fname = os.path.join("images", "results", fname)
     print(fname)
-    plt.savefig(fname)
+    pil_image.save(fname)
+
+    # plt.savefig(fname)
 
     return render(request, 'main/decor.html', {'img': img})
