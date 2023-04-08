@@ -143,11 +143,12 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-12 servicediv">
             <div class="form-group files">
-              <form method="post" enctype="multipart/form-data">
+              <form method="post" enctype="multipart/form-data" id="myform">
                 {% csrf_token %}
+              <input style="display:none" type="text" name="coords" id="coord_int" value="" />
               <div class="input-div files">
                 <p style="display: flex; justify-content: center">Drag & drop photos here or Browse</p>
-                <input type="file" onchange="updateFiles(event)" class="file" accept="image/jpeg, image/png, image/jpg" name="roomimage" required>
+                <input id="my-image" type="file" onchange="updateFiles(event)" class="file" accept="image/jpeg, image/png, image/jpg" name="roomimage" required>
             </div>
            
             <div class="preview" id ="preview" style="display: none;">
@@ -155,8 +156,9 @@
             </div> 
                   
             <br>
+            
             <div class="container " style="display:flex; justify-content: center;">
-            <button class="btn btn-outline-danger" type="sumbit" >Upload image</button>
+            <button class="btn btn-outline-danger">Upload image</button>
         </div>
             </form>
             </div>
@@ -198,6 +200,7 @@
  
   <script>
     let coords=[];
+    let final_coords="";
     
   $('.count').counterUp({
     delay:10,
@@ -287,6 +290,16 @@ $(document).ready(function () {
     var xCoordinate = event.offsetX;
     var yCoordinate = event.offsetY;
     coords.push([xCoordinate, yCoordinate]);
+  
+
+    // document.querySelectorAll("[name='coords']").forEach(function(input) {
+    //   input.value = coords;
+    // });
+    
+    const myInput = document.getElementById("coord_int");
+    myInput.value = myInput.value + "|" + xCoordinate + "," + yCoordinate;
+    
+    console.log(myInput.value);
     var img = $('<img>');
     img.css('top', yCoordinate+138);
     img.css('left', xCoordinate+205);
@@ -295,6 +308,8 @@ $(document).ready(function () {
     img.css("position", "absolute");
     console.log(coords);
     }
+
+    
 
   
   </script>

@@ -45,10 +45,12 @@ wall_indx = CLASSES.index("wall") - 1
 
 def home(request):
     if request.method=="POST":
-        img=Imag()
-        img.image=request.FILES.get('roomimage')
-        img.save()
-        return redirect('decor', pk=img.img_id)
+        print(request.POST.get('coords'))
+        print(request.FILES.get('roomimage'))
+        # img=Imag()
+        # img.image=request.FILES.get('roomimage')
+        # img.save()
+        # return redirect('decor', pk=img.img_id)
     return render(request, 'main/home.html')
 
 def decor(request, pk):
