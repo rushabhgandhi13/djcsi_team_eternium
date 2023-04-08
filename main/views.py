@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from django.shortcuts import render, redirect
+from PIL import Image
 from .models import Imag
 from mmseg.apis import inference_model, init_model, show_result_pyplot
 from segment_anything import sam_model_registry, SamPredictor, SamAutomaticMaskGenerator
@@ -105,34 +106,33 @@ def sam_segment(request, pk):
     result = inference_model(model, img_abs_path)
     mask = result.pred_sem_seg.data
     
-    image = cv2.imread('test-3.jpg')
+    image = cv2.imread(img_abs_path)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     predictor.set_image(image)
     
-    
-    mask = np.squeeze(mask, axis=0).numpy()
-    
-    mask_55 = np.zeros_like(mask)
-    mask_55[mask == 55] = 1
-    
-    # Create a new figure
-    fig, ax = plt.subplots()
+    mask = np.squeeze(mask, axis=0)
 
-    # Plot the image
-    ax.imshow(img)
+    # Extract the elements of the mask tensor with value 56
+    mask_56 = np.zeros_like(mask)
+    mask_56[mask == 56] = 1
 
-    # wall color
-    color = (255, 0, 255)
-    colors = [(0, 0, 0), color]
-    cmap = mcolors.ListedColormap(colors)
+    # Convert the image tensor and mask to PIL images
+    image = Image.fromarray(image)
+    mask_image = Image.fromarray((mask_56 * 255).astype(np.uint8), mode='L')
 
-    # Plot the mask on top of the image
-    masked_image = cmap(mask_55)
-    masked_image = masked_image[:,:,:3]
-    ax.imshow(masked_image, alpha=0.5)
-    ax.set_axis_off()
-        
+    # Resize the mask image to match the size of the original image
+    mask_image = mask_image.resize(image.size)
+
+    # Define the color to use for the mask (green in this case)
+    mask_color = (0, 255, 0)
+
+    # Blend the image and mask using the mask color
+    image = Image.composite(image, Image.new('RGB', image.size, mask_color), mask_image).astype(np.uint8)
+
+    # Show the image
     fname = os.path.basename(img_abs_path)
-    fname = fname[:-4] + f"_{color}.jpg"
+    fname = fname[:-4] + f"_{mask_color}.jpg"
     fname = os.path.join("images", "results", fname)
-    plt.savefig(fname)
+    image.save(fname)
+
+    return render(request, 'main/decor.html', {'img': img})
