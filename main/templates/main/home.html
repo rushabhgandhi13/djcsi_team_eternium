@@ -1,0 +1,317 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="HTML/CSS">
+  <meta name="author" content="Anil">
+  <title>Indecor - Home</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+  <link rel="icon" href="{% static 'images/favicon.png' %}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% comment %} <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
+  {% comment %} <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" /> {% endcomment %}
+  </head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+
+  <style>
+    .input-div {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 2px dotted black;
+  background-color: white;
+  position: relative;
+}
+
+.file {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+output {
+  width: 100%;
+  min-height: 150px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+  position: relative;
+  border-radius: 5px;
+}
+
+output .image {
+  height: 150px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+output .image img {
+  height: 100%;
+  width: 100%;
+}
+
+output .image span {
+  position: absolute;
+  top: -4px;
+  right: 4px;
+  cursor: pointer;
+  font-size: 22px;
+  color: white;
+}
+
+output .image span:hover {
+  opacity: 0.8;
+}
+
+output .span--hidden {
+  visibility: hidden;
+}
+write a media query for image size with with 80 % on screen size 10%
+.logo_image{
+    width: 80%;
+    height: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
+     margin-bottom: 10%;
+}
+
+
+    </style>
+</head>
+<body>
+  <div class="header" id="topheader">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+         
+        <div class="container text-uppercase p-2">
+            
+        <a class="navbar-brand font-weight-bold text-white" href="#" >InDecor</a>
+       
+        
+      </div>
+    </nav>
+    <section class="header-section">
+      <div class="center-div">
+        <div class="container">
+        <img src="{% static 'images/logo1.png' %}" class="logo_image"style="width:50% " alt=""> 
+    </div>
+        <br><br>
+        <div class="header-buttons">
+          <a href="#servicediv">Upload image</a>
+          {% comment %} <a href="#contactdiv">ContactUs</a> {% endcomment %}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ***************** header part end ************************** -->
+
+  <!-- ********************* three extra header div starts ******************** -->
+
+  <section class="header-extradiv">
+    <div class="container">
+      <div class="row">
+        <div class="extradiv col-lg-4 col-md-4 col-12">
+          <a href="#"><i class="fa-3x fa fa-desktop"></i></a>
+          <h2>EASY TO USE</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+        </div>
+        <div class="extradiv col-lg-4 col-md-4 col-12">
+          <a href="#"><i class="fa-3x fa fa-trophy"></i></a>
+          <h2>AWESOME DESIGN</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+        </div>
+        <div class="extradiv col-lg-4 col-md-4 col-12">
+          <a href="#"><i class="fa-3x fa fa-magic"></i></a>
+          <h2>EASY TO CUSTOMIZE</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ********************* three extra header div starts ******************** -->
+
+  <!-- ********************* offer section starts ****************************** -->
+
+  <section class="serviceoffers" id="servicediv">
+    <div class="container headings text-center">
+      <h1 class="text-center font-weight-bold">Upload image</h1>
+      <p class="text-center">Upload a photo of your space for Ai design.</p>
+    </div>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-lg-12 col-md-12 col-12 servicediv">
+            <div class="form-group files">
+                
+                <div class="input-div">
+                    <p>Drag & drop photos here or <strong>Browse</strong></p>
+                    <input type="file" class="file" multiple="multiple" accept="image/jpeg, image/png, image/jpg">
+                  </div>
+                 
+              </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ********************* offer section ends ****************************** -->
+
+
+
+
+  <!-- ********************* footer starts ****************************** -->
+
+    
+      <div class="mt-5 text-center">
+        <p>Copyright &copy;2023 All rights reserved | Team Eternium</p>
+      </div>
+      <div class="scrolltop float-right">
+        <i class="fa fa-arrow-up" onclick="topFunction()" id="myBtn"></i>
+      </div>
+  
+ 
+
+  <!-- ********************* footer ends ****************************** -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> {% endcomment %}
+  {% comment %} <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script> {% endcomment %}
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha256-jDnOKIOq2KNsQZTcBTEnsp76FnfMEttF6AV2DF2fFNE=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js" integrity="sha256-JtQPj/3xub8oapVMaIijPNoM0DHoAtgh/gwFYuN5rik=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+ 
+  <script>
+    
+  $('.count').counterUp({
+    delay:10,
+    time:300
+  })
+  // Get the button:
+  mybutton = document.getElementById("myBtn");
+
+  //When the user scrolls down 20px from the top of the document, show the buttons
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction(){
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+  //When the user clicks on the button, scroll to the top of the document
+  function topFunction(){
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }
+
+  const inputDiv = document.querySelector(".input-div")
+  const input = document.querySelector("input")
+  const output = document.querySelector("output")
+  let imagesArray = []
+  input.addEventListener("change", () => {
+  const files = input.files
+  for (let i = 0; i < files.length; i++) {
+    imagesArray.push(files[i])
+  }
+  displayImages()
+})
+
+inputDiv.addEventListener("drop", () => {
+  e.preventDefault()
+  const files = e.dataTransfer.files
+  for (let i = 0; i < files.length; i++) {
+    if (!files[i].type.match("image")) continue;
+
+    if (imagesArray.every(image => image.name !== files[i].name))
+      imagesArray.push(files[i])
+  }
+  displayImages()
+})
+
+function displayImages() {
+  let images = ""
+  imagesArray.forEach((image, index) => {
+    images += `<div class="image">
+                <img src="${URL.createObjectURL(image)}" alt="image">
+                <span onclick="deleteImage(${index})">&times;</span>
+              </div>`
+  })
+  output.innerHTML = images
+}
+
+function deleteImage(index) {
+  imagesArray.splice(index, 1)
+  displayImages()
+}
+
+$(document).ready(function () {
+      $('select').selectize({
+          sortField: 'text'
+      });
+  });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

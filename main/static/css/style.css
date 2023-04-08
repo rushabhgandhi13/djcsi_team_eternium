@@ -1,0 +1,231 @@
+html{
+  scroll-behavior: smooth;
+}
+*{margin: 0;padding: 0;box-sizing: border-box;font-family: 'Poppins', sans-serif;}
+a{text-decoration: none;}
+a:hover{text-decoration: none;}
+li{list-style: none;}
+p{
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-weight: 400;
+  color: #606060;
+}
+.extradiv h2, .servicediv h2{
+  font-size: 0.9rem;
+  margin: 20px 0 15px 0;
+  font-weight: bold;
+  line-height: 1.1;
+  word-spacing: 4px;
+}
+i{
+  color: #d02f2f;
+}
+
+/* XXXXXXXXXXXXXXXXXXXXX common style ends here XXXXXXXXXXXXXXXXXXX */
+.header{
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(rgba(244, 193, 193, 0.862), rgba(255, 0, 0, 0.763));
+  background-repeat: no-repeat;
+  background-size: cover;
+  clip-path: polygon(100% 0, 100% 77%, 50% 100%, 0 75%, 0 0);
+  position: relative;
+}
+.header::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.4;
+  z-index: -1;
+  background: linear-gradient(to right,  #fcfcfc 0%, #a55d5d 0%, #f61616 100%);
+}
+.navbar::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.4;
+  z-index: -1;
+  background: linear-gradient(to right,  #fcfcfc 0%, #a55d5d 0%, #f61616 100%);
+}
+.nav-item a{
+  color: #fff!important;
+  font-weight: bold;
+}
+.header-section{
+  width: 100%;
+  height: inherit;
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+.center-div{
+  position: absolute;
+  width: 100%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+.header-buttons a{
+  border: 1px solid #fff;
+  border-radius: 100px;
+  margin: 0 5px;
+  padding: 12px 35px;
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+}
+.header-buttons a:hover{
+  text-decoration: none;
+  color: #d15050;
+  background-color: #fff;
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.3);
+}
+.center-div p{
+  font-size: 1.3rem;
+  padding: 10px 0 20px 0;
+  color: #fff;
+}
+/* ********************* three extra header div starts ******************** */
+
+.header-extradiv{
+  width: 100%;
+  height: auto;
+  margin: 100px 0;
+  text-align: center;
+}
+.extradiv p{text-align: justify;}
+.extradiv{
+  background-color: #fff;
+  border: none;
+  padding: 30px!important;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+.extradiv:hover{
+  box-shadow: -10px 0px 20px 0 rgba(0,0,0,0.3);
+  transform: translateY(-20px);
+}
+
+/* ********************* three extra header div ends ******************** */
+
+/* ******************* service offer css start ********************** */
+
+.serviceoffers{
+  background-color: #f7f7f9;
+  padding: 50px 0;
+  margin-bottom: 50px;
+}
+.headings{
+  margin-bottom: 50px;
+}
+.headings h1{
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.names h1{
+  color: #2e2e2e;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.service-icons{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.progress{
+  height: 0.6rem!important;
+  margin-bottom: 25px!important;
+}
+/* ******************* service offer css ends ********************** */
+
+/* ********************* project (completed) starts ****************************** */
+
+.project-work{
+  margin: 100px 0;
+}
+.project-work h1{
+  font-size: 2rem;
+  text-align: center;
+}
+/* ********************* project (completed) ends ****************************** */
+
+ 
+ /* ********************* contact us starts ******************************  */
+
+.contactus{
+  width: 100%;
+  height: 100vh;
+  padding: 80px 0;
+  position: relative;
+}
+.contactus::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  background: linear-gradient(330deg, #f61616 55%, #fff 0%);
+}
+.form-button button{
+  border: 1px solid #50c1d0;
+  border-radius: 100px;
+  margin: 0 5px;
+  padding: 12px 35px;
+  outline: none;
+  color: #d15050;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  background: transparent;
+}
+form:hover .form-button button{
+  background: #fff;
+  color: #d15050;
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.3);
+}
+::placeholder{
+  font-size: 0.85rem;
+}
+ /* ********************* contact us ends ******************************  */
+
+
+
+
+
+/* ****************** Media Queries ********************** */
+@media (max-width: 768px) {
+  .nav-item{
+    text-align: center!important;
+  }
+  .pricing, .happyclients, .contactus{
+    height: auto;
+    margin-top: 50px;
+  }
+  .card-second{
+    transform: translateY(0px);
+    margin: 30px 0;
+  }
+  .contactus p{
+    padding: 0 50px;
+  }
+
+}
