@@ -122,207 +122,22 @@
     </div>
     <div class="container">
       <div class="row">
-
-
         <div class="col-lg-6 col-md-6 col-12 servicediv">
           <div class="container">
+            <p>Original Image</p>
             <img style="width:100%" src="{{img.image.url}}" />
           </div>
         </div>
 
-
         <div class="col-lg-6 col-md-6 col-12 servicediv">
           <div class="container">
-            <div class="form-group">
-              <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <p>Please select a colour</p>
-                <label for="select-state">Search a colour: </label>
-
-                <select name="col1" class="selectpicker des" data-show-subtext="false" data-live-search="true"
-                  style="-webkit-appearance: none;" id="select-state" placeholder="Pick a state...">
-                  <option value="">Select a color...</option>
-                  <option value="0,0,0">black</option>
-                  <option value="192,192,192">silver</option>
-                  <option value="128,128,128">gray</option>
-                  <option value="255,255,255">white</option>
-                  <option value="128,0,0">maroon</option>
-                  <option value="255,0,0">red</option>
-                  <option value="128,0,128 ">purple</option>
-                  <option value="255,0,255">fuchsia</option>
-                  <option value="0,128,0">green</option>
-                  <option value="0,255,0">lime</option>
-                  <option value="128,128,0">olive</option>
-                  <option value="255,255,0">yellow</option>
-                  <option value="0,0,128">navy</option>
-                  <option value="0,0,255">blue</option>
-                  <option value="0,128,128">teal</option>
-                  <option value="0,255,255">aqua</option>
-                  <option value="240,248,255">aliceblue</option>
-                  <option value="250,235,215">antiquewhite</option>
-                  <option value="0,255,255">aqua</option>
-                  <option value="127,255,212">aquamarine</option>
-                  <option value="240,255,255">azure</option>
-                  <option value="245,245,220">beige</option>
-                  <option value="255,228,196">bisque</option>
-                  <option value="0,0,0">black</option>
-                  <option value="255,235,205">blanchedalmond</option>
-                  <option value="0,0,255">blue</option>
-                  <option value="138,43,226">blueviolet</option>
-                  <option value="165,42,42">brown</option>
-                  <option value="222,184,135">burlywood</option>
-                  <option value="95,158,160">cadetblue</option>
-                  <option value="127,255,0">chartreuse</option>
-                  <option value="210,105,30">chocolate</option>
-                  <option value="255,127,80">coral</option>
-                  <option value="#6495ed	100,149,237">cornfl</option>
-                  <option value="255,248,220">cornsilk</option>
-                  <option value="220,20,60">crimson</option>
-                  <option value="0,255,255">cyan</option>
-                  <option value="0,0,139">darkblue</option>
-                  <option value="0,139,139">darkcyan</option>
-                  <option value="184,134,11">darkgoldenrod</option>
-                  <option value="169,169,169">darkgray</option>
-                  <option value="0,100,0">darkgreen</option>
-                  <option value="169,169,169">darkgrey</option>
-                  <option value="189,183,107">darkkhaki</option>
-                  <option value="139,0,139">darkmagenta</option>
-                  <option value="85,107,47">darkolivegreen</option>
-                  <option value="255,140,0">darkorange</option>
-                  <option value="153,50,204">darkorchid</option>
-                  <option value="139,0,0">darkred</option>
-                  <option value="233,150,122">darksalmon</option>
-                  <option value="143,188,143">darkseagreen</option>
-                  <option value="72,61,139">darkslateblue</option>
-                  <option value="47,79,79">darkslategray</option>
-                  <option value="47,79,79">darkslategrey</option>
-                  <option value="0,206,209">darkturquoise</option>
-                  <option value="148,0,211">darkviolet</option>
-                  <option value="255,20,147">deeppink</option>
-                  <option value="0,191,255">deepskyblue</option>
-                  <option value="105,105,105">dimgray</option>
-                  <option value="105,105,105">dimgrey</option>
-                  <option value="30,144,255">dodgerblue</option>
-                  <option value="178,34,34">firebrick</option>
-                  <option value="255,250,240">floralwhite</option>
-                  <option value="34,139,34">forestgreen</option>
-                  <option value="255,0,255">fuchsia</option>
-                  <option value="220,220,220">gainsboro</option>
-                  <option value="248,248,255">ghostwhite</option>
-                  <option value="255,215,0">gold</option>
-                  <option value="218,165,32">goldenrod</option>
-                  <option value="128,128,128">gray</option>
-                  <option value="0,128,0">green</option>
-                  <option value="173,255,47">greenyellow</option>
-                  <option value="128,128,128">grey</option>
-                  <option value="240,255,240">honeydew</option>
-                  <option value="255,105,180">hotpink</option>
-                  <option value="205,92,92">indianred</option>
-                  <option value="75,0,130">indigo</option>
-                  <option value="255,255,240">ivory</option>
-                  <option value="240,230,140">khaki</option>
-                  <option value="230,230,250">lavender</option>
-                  <option value="255,240,245">lavenderblush</option>
-                  <option value="124,252,0">lawngreen</option>
-                  <option value="255,250,205">lemonchiffon</option>
-                  <option value="173,216,230">lightblue</option>
-                  <option value="240,128,128">lightcoral</option>
-                  <option value="224,255,255">lightcyan</option>
-                  <option value="250,250,210">lightgoldenrodyellow</option>
-                  <option value="211,211,211">lightgray</option>
-                  <option value="144,238,144">lightgreen</option>
-                  <option value="211,211,211">lightgrey</option>
-                  <option value="255,182,193">lightpink</option>
-                  <option value="255,160,122">lightsalmon</option>
-                  <option value="32,178,170">lightseagreen</option>
-                  <option value="135,206,250">lightskyblue</option>
-                  <option value="119,136,153">lightslategray</option>
-                  <option value="119,136,153">lightslategrey</option>
-                  <option value="176,196,222">lightsteelblue</option>
-                  <option value="255,255,224">lightyellow</option>
-                  <option value="0,255,0">lime</option>
-                  <option value="50,205,50">limegreen</option>
-                  <option value="250,240,230">linen</option>
-                  <option value="255,0,255">magenta</option>
-                  <option value="128,0,0">maroon</option>
-                  <option value="102,205,170">mediumaquamarine</option>
-                  <option value="0,0,205">mediumblue</option>
-                  <option value="186,85,211">mediumorchid</option>
-                  <option value="147,112,219">mediumpurple</option>
-                  <option value="60,179,113">mediumseagreen</option>
-                  <option value="123,104,238">mediumslateblue</option>
-                  <option value="0,250,154">mediumspringgreen</option>
-                  <option value="72,209,204">mediumturquoise</option>
-                  <option value="199,21,133">mediumvioletred</option>
-                  <option value="25,25,112">midnightblue</option>
-                  <option value="245,255,250">mintcream</option>
-                  <option value="255,228,225">mistyrose</option>
-                  <option value="255,228,181">moccasin</option>
-                  <option value="0,0,128">navajowhite</option>
-                  <option value="253,245,230">navy</option>
-                  <option value="128,128,0">oldlace</option>
-                  <option value="107,142,35">olive</option>
-                  <option value="255,165,0">olivedrab</option>
-                  <option value="255,69,0">orange</option>
-                  <option value="255,45,0">orangered</option>
-                  <option value="218,112,214">Orchid</option>
-                  <option value="238,232,170">Palegoldenrod</option>
-                  <option value="152,251,152">Palegreen</option>
-                  <option value="175,238,238">Paleturquoise</option>
-                  <option value="219,112,147">Palevioletred</option>
-                  <option value="255,239,213">Papayawhip</option>
-                  <option value="255,218,185">Peachpuff</option>
-                  <option value="205,133,63">Peru</option>
-                  <option value="255,192,203">Pink</option>
-                  <option value="221,160,221">Plum</option>
-                  <option value="176,224,230">Powderblue</option>
-                  <option value="128,0,128">Purple</option>
-                  <option value="255,0,0">Red</option>
-                  <option value="188,143,143">Rosybrown</option>
-                  <option value="65,105,225">Royalblue</option>
-                  <option value="139,69,19">Saddlebrown</option>
-                  <option value="250,128,114">Salmon</option>
-                  <option value="244,164,96">Sandybrown</option>
-                  <option value="46,139,87">Seagreen</option>
-                  <option value="255,245,238">Seashell</option>
-                  <option value="160,82,45">Sienna</option>
-                  <option value="192,192,192">Silver</option>
-                  <option value="135,206,235">Skyblue</option>
-                  <option value="106,90,205">Slateblue</option>
-                  <option value="112,128,144">Slategray</option>
-                  <option value="112,128,144">Slategrey</option>
-                  <option value="255,250,250">Snow</option>
-                  <option value="0,255,127">Springgreen</option>
-                  <option value="70,130,180">Steelblue</option>
-                  <option value="210,180,140">San</option>
-                  <option value="0,128,128">Teal</option>
-                  <option value="216,191,216">Thistle</option>
-                  <option value="255,99,71">Tomato</option>
-                  <option value="64,224,208">Turquoise</option>
-                  <option value="238,130,238">Violet</option>
-                  <option value="245,222,179">Wheat</option>
-                  <option value="255,255,255">White</option>
-                  <option value="245,245,245">Whitesmoke</option>
-                  <option value="255,255,0">Yellow</option>
-                  <option value="154,205,50">Yellowgreen</option>
-                </select>
-                <p>Or</p>
-
-                <label>Select color: </label>
-                <input type="color" name="color" />
-                <br>
-                <br>
-                <button class="btn btn-outline-danger" type="sumbit">Apply</button>
-
-
-
-
-              </form>
-
-
-            </div>
+            <p>Segmented Image</p>
+            <img style="width:100%" src="{{segImg.segmentedImage.url}}" />
           </div>
         </div>
+
+
+        
 
 
       </div>
@@ -330,6 +145,209 @@
     </div>
   </section>
 
+  <section class="serviceoffers" id="servicediv">
+    <div class="container headings text-center">
+
+  <div class="offset-2 col-lg-8 col-md-9 col-9 servicediv">
+    <div class="container">
+      <div class="form-group">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <h3>Please select a colour</h3>
+          <br>
+          {% for i in colorMap %}
+          <div style="display: flex; flex-direction: row; justify-content: space-between;">
+            {% comment %} <label for="select-state">Search a colour: </label> {% endcomment %}
+
+          <select name="col1" class="selectpicker des" data-show-subtext="false" data-live-search="true"
+            style="-webkit-appearance: none;" id="select-state" placeholder="Pick a state...">
+            <option value="">Select a color...</option>
+            <option value="0,0,0">black</option>
+            <option value="192,192,192">silver</option>
+            <option value="128,128,128">gray</option>
+            <option value="255,255,255">white</option>
+            <option value="128,0,0">maroon</option>
+            <option value="255,0,0">red</option>
+            <option value="128,0,128 ">purple</option>
+            <option value="255,0,255">fuchsia</option>
+            <option value="0,128,0">green</option>
+            <option value="0,255,0">lime</option>
+            <option value="128,128,0">olive</option>
+            <option value="255,255,0">yellow</option>
+            <option value="0,0,128">navy</option>
+            <option value="0,0,255">blue</option>
+            <option value="0,128,128">teal</option>
+            <option value="0,255,255">aqua</option>
+            <option value="240,248,255">aliceblue</option>
+            <option value="250,235,215">antiquewhite</option>
+            <option value="0,255,255">aqua</option>
+            <option value="127,255,212">aquamarine</option>
+            <option value="240,255,255">azure</option>
+            <option value="245,245,220">beige</option>
+            <option value="255,228,196">bisque</option>
+            <option value="0,0,0">black</option>
+            <option value="255,235,205">blanchedalmond</option>
+            <option value="0,0,255">blue</option>
+            <option value="138,43,226">blueviolet</option>
+            <option value="165,42,42">brown</option>
+            <option value="222,184,135">burlywood</option>
+            <option value="95,158,160">cadetblue</option>
+            <option value="127,255,0">chartreuse</option>
+            <option value="210,105,30">chocolate</option>
+            <option value="255,127,80">coral</option>
+            <option value="#6495ed	100,149,237">cornfl</option>
+            <option value="255,248,220">cornsilk</option>
+            <option value="220,20,60">crimson</option>
+            <option value="0,255,255">cyan</option>
+            <option value="0,0,139">darkblue</option>
+            <option value="0,139,139">darkcyan</option>
+            <option value="184,134,11">darkgoldenrod</option>
+            <option value="169,169,169">darkgray</option>
+            <option value="0,100,0">darkgreen</option>
+            <option value="169,169,169">darkgrey</option>
+            <option value="189,183,107">darkkhaki</option>
+            <option value="139,0,139">darkmagenta</option>
+            <option value="85,107,47">darkolivegreen</option>
+            <option value="255,140,0">darkorange</option>
+            <option value="153,50,204">darkorchid</option>
+            <option value="139,0,0">darkred</option>
+            <option value="233,150,122">darksalmon</option>
+            <option value="143,188,143">darkseagreen</option>
+            <option value="72,61,139">darkslateblue</option>
+            <option value="47,79,79">darkslategray</option>
+            <option value="47,79,79">darkslategrey</option>
+            <option value="0,206,209">darkturquoise</option>
+            <option value="148,0,211">darkviolet</option>
+            <option value="255,20,147">deeppink</option>
+            <option value="0,191,255">deepskyblue</option>
+            <option value="105,105,105">dimgray</option>
+            <option value="105,105,105">dimgrey</option>
+            <option value="30,144,255">dodgerblue</option>
+            <option value="178,34,34">firebrick</option>
+            <option value="255,250,240">floralwhite</option>
+            <option value="34,139,34">forestgreen</option>
+            <option value="255,0,255">fuchsia</option>
+            <option value="220,220,220">gainsboro</option>
+            <option value="248,248,255">ghostwhite</option>
+            <option value="255,215,0">gold</option>
+            <option value="218,165,32">goldenrod</option>
+            <option value="128,128,128">gray</option>
+            <option value="0,128,0">green</option>
+            <option value="173,255,47">greenyellow</option>
+            <option value="128,128,128">grey</option>
+            <option value="240,255,240">honeydew</option>
+            <option value="255,105,180">hotpink</option>
+            <option value="205,92,92">indianred</option>
+            <option value="75,0,130">indigo</option>
+            <option value="255,255,240">ivory</option>
+            <option value="240,230,140">khaki</option>
+            <option value="230,230,250">lavender</option>
+            <option value="255,240,245">lavenderblush</option>
+            <option value="124,252,0">lawngreen</option>
+            <option value="255,250,205">lemonchiffon</option>
+            <option value="173,216,230">lightblue</option>
+            <option value="240,128,128">lightcoral</option>
+            <option value="224,255,255">lightcyan</option>
+            <option value="250,250,210">lightgoldenrodyellow</option>
+            <option value="211,211,211">lightgray</option>
+            <option value="144,238,144">lightgreen</option>
+            <option value="211,211,211">lightgrey</option>
+            <option value="255,182,193">lightpink</option>
+            <option value="255,160,122">lightsalmon</option>
+            <option value="32,178,170">lightseagreen</option>
+            <option value="135,206,250">lightskyblue</option>
+            <option value="119,136,153">lightslategray</option>
+            <option value="119,136,153">lightslategrey</option>
+            <option value="176,196,222">lightsteelblue</option>
+            <option value="255,255,224">lightyellow</option>
+            <option value="0,255,0">lime</option>
+            <option value="50,205,50">limegreen</option>
+            <option value="250,240,230">linen</option>
+            <option value="255,0,255">magenta</option>
+            <option value="128,0,0">maroon</option>
+            <option value="102,205,170">mediumaquamarine</option>
+            <option value="0,0,205">mediumblue</option>
+            <option value="186,85,211">mediumorchid</option>
+            <option value="147,112,219">mediumpurple</option>
+            <option value="60,179,113">mediumseagreen</option>
+            <option value="123,104,238">mediumslateblue</option>
+            <option value="0,250,154">mediumspringgreen</option>
+            <option value="72,209,204">mediumturquoise</option>
+            <option value="199,21,133">mediumvioletred</option>
+            <option value="25,25,112">midnightblue</option>
+            <option value="245,255,250">mintcream</option>
+            <option value="255,228,225">mistyrose</option>
+            <option value="255,228,181">moccasin</option>
+            <option value="0,0,128">navajowhite</option>
+            <option value="253,245,230">navy</option>
+            <option value="128,128,0">oldlace</option>
+            <option value="107,142,35">olive</option>
+            <option value="255,165,0">olivedrab</option>
+            <option value="255,69,0">orange</option>
+            <option value="255,45,0">orangered</option>
+            <option value="218,112,214">Orchid</option>
+            <option value="238,232,170">Palegoldenrod</option>
+            <option value="152,251,152">Palegreen</option>
+            <option value="175,238,238">Paleturquoise</option>
+            <option value="219,112,147">Palevioletred</option>
+            <option value="255,239,213">Papayawhip</option>
+            <option value="255,218,185">Peachpuff</option>
+            <option value="205,133,63">Peru</option>
+            <option value="255,192,203">Pink</option>
+            <option value="221,160,221">Plum</option>
+            <option value="176,224,230">Powderblue</option>
+            <option value="128,0,128">Purple</option>
+            <option value="255,0,0">Red</option>
+            <option value="188,143,143">Rosybrown</option>
+            <option value="65,105,225">Royalblue</option>
+            <option value="139,69,19">Saddlebrown</option>
+            <option value="250,128,114">Salmon</option>
+            <option value="244,164,96">Sandybrown</option>
+            <option value="46,139,87">Seagreen</option>
+            <option value="255,245,238">Seashell</option>
+            <option value="160,82,45">Sienna</option>
+            <option value="192,192,192">Silver</option>
+            <option value="135,206,235">Skyblue</option>
+            <option value="106,90,205">Slateblue</option>
+            <option value="112,128,144">Slategray</option>
+            <option value="112,128,144">Slategrey</option>
+            <option value="255,250,250">Snow</option>
+            <option value="0,255,127">Springgreen</option>
+            <option value="70,130,180">Steelblue</option>
+            <option value="210,180,140">San</option>
+            <option value="0,128,128">Teal</option>
+            <option value="216,191,216">Thistle</option>
+            <option value="255,99,71">Tomato</option>
+            <option value="64,224,208">Turquoise</option>
+            <option value="238,130,238">Violet</option>
+            <option value="245,222,179">Wheat</option>
+            <option value="255,255,255">White</option>
+            <option value="245,245,245">Whitesmoke</option>
+            <option value="255,255,0">Yellow</option>
+            <option value="154,205,50">Yellowgreen</option>
+          </select>
+          <p>Or</p>
+          {% comment %} <label>Select color: </label> {% endcomment %}
+          <input type="color" name="color" value="{{i}}" />
+          </div>
+          {% endfor %}
+          <br>
+          
+
+          <br>
+          <button class="btn btn-outline-danger" type="sumbit">Apply</button>
+
+
+
+
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+</section>
   <!-- ********************* offer section ends ****************************** -->
 
   <br><br>

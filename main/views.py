@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from django.shortcuts import render, redirect
 from PIL import Image, ImageDraw
-from .models import Imag, Point
+from .models import Imag, Point, SegmentedImages
 from mmseg.apis import inference_model, init_model, show_result_pyplot
 from segment_anything import sam_model_registry, SamPredictor, SamAutomaticMaskGenerator
 
@@ -58,7 +58,7 @@ def home(request):
             point.x=i[0]
             point.y=i[1]
             point.save()
-        return redirect('decor', pk=img.img_id)
+        return redirect('segment', pk=img.img_id)
     return render(request, 'main/home.html')
 
 def decor(request, pk):
@@ -115,65 +115,102 @@ def sam_segment(request, pk):
     img=Imag.objects.get(img_id=pk)
     img_rel_path = img.image.url    
     img_abs_path = f".{img_rel_path}"
+    check = False
+    color_check = False
+    if SegmentedImages.objects.filter(segImg_id = img).exists():
+        check = True
+    else:
+        check = False
+
+    if request.method == "POST":
+        colors = request.POST.getlist('color')
+        for i in range(0,len(points)):
+            points[i].color = colors[i]
+            points[i].save()
+        SegmentedImages.objects.get(segImg_id = img).delete()
+        check = False
+        color_check = True
+
+
+    colorMap = Point.objects.filter(img_id = pk).values_list('color', flat=True)
+
+    if check:
+        pass
+    else:
+        print("Transforming image")
+        image = cv2.imread(img_abs_path)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        predictor.set_image(image)
+        print("Transforming image done")
+        
+        w, h = image.shape[0], image.shape[1]
+        print(image.shape[0])
+        print([[i.x, i.y] for i in points])
+        p = [[(h/700) * i.x, (w/700) *i.y] for i in points]
+        print(p)
+        # Create a new figure
+        fig, ax = plt.subplots()
+
+        # Plot the image    
+        # ax.imshow(image)
+        pil_image = Image.fromarray(image)
+        for point, j in zip(p, points):
+            input_point = np.array([point])
+            input_label = np.array([1])
+            
+            print("Predicting...")
+            mask, scores, logits = predictor.predict(
+                point_coords=input_point,
+                point_labels=input_label,
+                multimask_output=False,
+            )
+            mask = np.squeeze(mask, axis=0)
+            
+            mask_55 = np.zeros_like(mask)
+            mask_55[mask == True] = 255
+
+            if not color_check:
+            # wall color
+                red = random.randint(0, 255)
+                green = random.randint(0, 255)
+                blue = random.randint(0, 255)
+                color = (red, green, blue)
+                
+                j.color = '#%02x%02x%02x' % color
+                j.save()
+            else:
+                color = j.color
+                color = color[1:]
+                color = tuple(int(color[i:i+2], 16) for i in (0, 2, 4))
+                print(color)
+            colors = [(0, 0, 0), color]
+            cmap = mcolors.ListedColormap(colors)
+
+            # Plot the mask on top of the image
+            masked_image = cmap(mask_55)
+            masked_image = masked_image[:,:,:3]
+            
+            draw = ImageDraw.Draw(pil_image)
+            mask_pil = Image.fromarray(mask_55)
+            draw.bitmap((0, 0), mask_pil, fill=color)
+            
+            # ax.imshow(masked_image, alpha=0.5)
+            # ax.set_axis_off()
+
+        # Show the image
+        fname = os.path.basename(img_abs_path)
+        fname = fname.split('.')[0] + f"_{color}.{fname.split('.')[1]}"
+        fname = os.path.join("images", "results", fname)
+        print(fname)
+
+        segImg = SegmentedImages()
+        segImg.segImg_id = img
+        segImg.segmentedImage = fname
+        segImg.save()
+        pil_image.save(fname)
+
+    segImg = SegmentedImages.objects.get(segImg_id = img.img_id)
     
-    print("Transforming image")
-    image = cv2.imread(img_abs_path)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    predictor.set_image(image)
-    print("Transforming image done")
-    
-    w, h = image.shape[0], image.shape[1]
-    print(image.shape[0])
-    print([[i.x, i.y] for i in points])
-    p = [[(h/700) * i.x, (w/700) *i.y] for i in points]
-    print(p)
-    # Create a new figure
-    fig, ax = plt.subplots()
-
-    # Plot the image    
-    # ax.imshow(image)
-    pil_image = Image.fromarray(image)
-    for point in p:
-        input_point = np.array([point])
-        input_label = np.array([1])
-        
-        print("Predicting...")
-        mask, scores, logits = predictor.predict(
-            point_coords=input_point,
-            point_labels=input_label,
-            multimask_output=False,
-        )
-        mask = np.squeeze(mask, axis=0)
-        
-        mask_55 = np.zeros_like(mask)
-        mask_55[mask == True] = 255
-
-        # wall color
-        red = random.randint(0, 255)
-        green = random.randint(0, 255)
-        blue = random.randint(0, 255)
-        color = (red, green, blue)
-        colors = [(0, 0, 0), color]
-        cmap = mcolors.ListedColormap(colors)
-
-        # Plot the mask on top of the image
-        masked_image = cmap(mask_55)
-        masked_image = masked_image[:,:,:3]
-        
-        draw = ImageDraw.Draw(pil_image)
-        mask_pil = Image.fromarray(mask_55)
-        draw.bitmap((0, 0), mask_pil, fill=color)
-        
-        # ax.imshow(masked_image, alpha=0.5)
-        # ax.set_axis_off()
-
-    # Show the image
-    fname = os.path.basename(img_abs_path)
-    fname = fname.split('.')[0] + f"_{color}.{fname.split('.')[1]}"
-    fname = os.path.join("images", "results", fname)
-    print(fname)
-    pil_image.save(fname)
-
     # plt.savefig(fname)
 
-    return render(request, 'main/decor.html', {'img': img})
+    return render(request, 'main/decor.html', {'img': img, 'segImg': segImg, 'colorMap': colorMap})
