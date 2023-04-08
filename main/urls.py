@@ -6,7 +6,8 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('decor/<int:pk>/', views.decor, name='decor')
+    path('decor/<int:pk>/', views.decor, name='decor'),
+    path('segment/<int:pk>/', views.segment, name='segment')
 ]
 if settings.DEBUG:
 	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
