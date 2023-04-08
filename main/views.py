@@ -20,7 +20,7 @@ model = init_model(config=config_file, checkpoint=ckpt_path, device="cpu")
 
 
 ## sam
-sam_checkpoint = "sam_vit_l_0b3195.pth"
+sam_checkpoint = "main/static/checkpoints/sam_vit_l_0b3195.pth"
 model_type = "vit_l"
 device = "cpu"
 sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
