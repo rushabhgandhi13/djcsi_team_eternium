@@ -1,0 +1,390 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="HTML/CSS">
+  <meta name="author" content="Anil">
+  <title>Indecor - Home</title>
+  <link rel="stylesheet" href="{% static 'css/decor.css' %}">
+  <link rel="icon" href="{% static 'images/favicon.png' %}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/css/bootstrap-select.css" />
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css"
+  integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+
+<style>
+  .files input {
+    outline: 2px dashed #92b0b3;
+    border-radius: 10px;
+    outline-offset: 7px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 30px 225px 30px 35%;
+    text-align: center !important;
+    margin-bottom: 15px;
+    width: 100% !important;
+  }
+
+  .files input:focus {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    border: 1px solid #92b0b3;
+  }
+
+  .files {
+    position: relative
+  }
+
+  .files:after {
+    pointer-events: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 50px;
+    right: 0;
+    height: 56px;
+    content: "";
+    background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+    display: block;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+
+  .color input {
+    background-color: #f1f1f1;
+  }
+
+  .files:before {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 57px;
+    /* content: " or drag it here. "; */
+    display: block;
+    margin: 0 auto;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+  }
+
+  .logo_image {
+    width: 80%;
+    height: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+</style>
+</head>
+
+<body>
+  <div class="header" id="topheader">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container text-uppercase p-2">
+        <a class="navbar-brand font-weight-bold text-white" href="{% url 'home' %}">InDecor</a>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- ***************** header part end ************************** -->
+  <br><br><br>
+
+  <!-- ********************* offer section starts ****************************** -->
+
+
+
+  <section class="serviceoffers" id="servicediv">
+    <div class="container headings text-center">
+      <h1 class="text-center font-weight-bold">Our Suggestions</h1>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-12 servicediv">
+          <div class="container">
+            <p>Original Image</p>
+            <img style="width:100%" src="{{img.image.url}}" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="serviceoffers" id="servicediv">
+    <div class="container headings text-center">
+
+        <section class="serviceoffers" id="servicediv">
+            <div class="container headings text-center">
+              <h1 class="text-center font-weight-bold">Our Suggestions</h1>
+            </div>
+            <div class="container">
+              <div class="row">
+                {% for i in paths %}
+                <div class="col-lg-6 col-md-6 col-12 servicediv" style="margin-top: 15px">
+                  <div class="container">
+                    <p>Suggestion {{ forloop.counter }}</p>
+                    <img style="width:100%" src="{{i.image.url}}" height="430px" width="430px" />
+                  </div>
+                </div>
+                {% endfor %}
+        
+              </div>
+            </div>
+            </div>
+          </section>
+  
+</section>
+  <!-- ********************* offer section ends ****************************** -->
+
+  <br><br>
+
+
+  <!-- ********************* footer starts ****************************** -->
+
+
+  <div class="mt-5 text-center">
+    <p>Copyright &copy;2023 All rights reserved | Team Eternium</p>
+  </div>
+  <div class="scrolltop float-right">
+    <i class="fa fa-arrow-up" onclick="topFunction()" id="myBtn"></i>
+  </div>
+
+
+
+  <!-- ********************* footer ends ****************************** -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/js/bootstrap-select.js">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"
+    integrity="sha256-jDnOKIOq2KNsQZTcBTEnsp76FnfMEttF6AV2DF2fFNE=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"
+    integrity="sha256-JtQPj/3xub8oapVMaIijPNoM0DHoAtgh/gwFYuN5rik=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+    integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+
+  <script>
+
+      $('.count').counterUp({
+        delay:10,
+      time:300
+  })
+      // Get the button:
+      mybutton = document.getElementById("myBtn");
+
+      //When the user scrolls down 20px from the top of the document, show the buttons
+      window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction(){
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
+  }
+      //When the user clicks on the button, scroll to the top of the document
+      function topFunction(){
+        document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }
+
+      const inputDiv = document.querySelector(".input-div")
+      const input = document.querySelector("input")
+      const output = document.querySelector("output")
+      let imagesArray = []
+  input.addEventListener("change", () => {
+  const files = input.files
+      for (let i = 0; i < files.length; i++) {
+        imagesArray.push(files[i])
+      }
+      displayImages()
+})
+
+inputDiv.addEventListener("drop", () => {
+        e.preventDefault()
+  const files = e.dataTransfer.files
+      for (let i = 0; i < files.length; i++) {
+    if (!files[i].type.match("image")) continue;
+
+    if (imagesArray.every(image => image.name !== files[i].name))
+      imagesArray.push(files[i])
+  }
+      displayImages()
+})
+
+      function displayImages() {
+        let images = ""
+  imagesArray.forEach((image, index) => {
+        images += `<div class="image">
+                <img src="${URL.createObjectURL(image)}" alt="image">
+                <span onclick="deleteImage(${index})">&times;</span>
+              </div>`
+      })
+      output.innerHTML = images
+}
+
+      function deleteImage(index) {
+        imagesArray.splice(index, 1)
+  displayImages()
+}
+
+      $(document).ready(function () {
+        $('select').selectize({
+          sortField: 'text'
+        });
+  });
+
+      function updateFiles() {
+    var fileNames = [];
+      var file = document.getElementById("file");
+      var fileList = document.getElementById("fileList");
+      while (fileList.firstChild) {
+        fileList.firstChild.remove()
+      }
+    if (file.files.length > 0) {  
+      for (var i = 0; i < file.files.length; i++) {
+        fileNames.push(file.files[i].name);
+        // singleFile = file.files[i];
+      }
+      var div = document.createElement("div");
+      div.style.padding = "10px";
+      div.style.background = "rgba(255, 255, 255, 0.29)";
+      div.style.borderRadius = "6px";
+      div.style.boxShadow = "0 4px 30px rgba(0, 0, 0, 0.1)";
+      div.style.backdropFilter = "blur(6.4px)";
+      div.style.webkitBackdropFilter = "blur(6.4px)";
+      div.style.border = "1px solid rgba(255, 255, 255, 0.24)";
+      div.style.marginBottom = "10px";
+      div.innerHTML = fileNames.join(", ");
+      document.getElementById("fileList").appendChild(div);
+    }
+  }
+
+  function clchecker(){
+
+    if (document.getElementsByName("colorchecker")[0].checked == true) {
+
+      let elems = document.getElementsByClassName("colorselect");
+      console.log(elems)
+      for (let i = 0; i < elems.length; i++) {
+        elems[i].setAttribute("disabled","disabled")  
+      }
+      let el = document.getElementsByClassName("incolor");
+
+      for (let i = 0; i < el.length; i++) {
+        el[i].removeAttribute("disabled")
+      }
+        
+    } else {
+
+      let elems = document.getElementsByClassName("incolor");
+      for (let i = 0; i < elems.length; i++) {
+        elems[i].setAttribute("disabled","")  
+      }
+      let el = document.getElementsByClassName("colorselect");
+      for (let i = 0; i < el.length; i++) {
+        el[i].removeAttribute("disabled")
+      }
+    }
+
+  }
+
+
+  </script>
+
+
+
+</body>
+
+</html>

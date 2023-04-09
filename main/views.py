@@ -123,10 +123,19 @@ def sam_segment(request, pk):
         check = False
 
     if request.method == "POST":
-        colors = request.POST.getlist('color')
-        for i in range(0,len(points)):
-            points[i].color = colors[i]
-            points[i].save()
+        if request.POST.get('colorchecker') == "on":
+            colors = request.POST.getlist('color')
+            for i in range(0,len(points)):
+                points[i].color = colors[i]
+                points[i].save()
+        else:
+            colors=request.POST.getlist('col1')
+            for i in range(0,len(points)):
+                temp_color=colors[i].split(',')
+                colors[i]=(int(temp_color[0]),int(temp_color[1]),int(temp_color[2]))
+                points[i].color = '#%02x%02x%02x' % colors[i]
+                points[i].save()
+            print(colors)
         SegmentedImages.objects.get(segImg_id = img).delete()
         check = False
         color_check = True
@@ -213,4 +222,9 @@ def sam_segment(request, pk):
     
     # plt.savefig(fname)
 
-    return render(request, 'main/decor.html', {'img': img, 'segImg': segImg, 'colorMap': colorMap})
+    return render(request, 'main/decor.html', {'img': img, 'segImg': segImg, 'colorMap': colorMap, 'pk': pk})
+
+def suggestions(request, pk):
+    img=Imag.objects.get(img_id=pk)
+    path=Imag.objects.all()
+    return render(request, 'main/suggestions.html', {'pk': pk, 'img': img, 'paths': path})
