@@ -9,7 +9,7 @@ The initial task on homeowners’ lists when renovating or redecorating their ho
 
 To alleviate this problem, we come up with a robust system **"Indecor"** that enables homeowners to visualize how their homes would appear with a new coat of paint.This system is intelligent enough to ignore the complex objects within the house and accurately paint only the necessary wall sections, while still maintaining a realistic representation of the image.
 
-The application uses computer vision and deep learning techniques such as the [segment-anything](https://segment-anything.com/) to detect walls automatically and provide recommendations for wall painting and texture designs to the users. Additionally, the system provides a tool for users to select a wall and choose a color, and the AI model generates an image based on the user inpu
+The application uses computer vision and deep learning techniques such as the [segment-anything](https://segment-anything.com/) to detect walls automatically and provide recommendations for wall painting and texture designs to the users. Additionally, the system provides a tool for users to select a wall and choose a color, and the AI model generates an image based on the user input
 
 ### Get your walls painted!
 ![design-intro-page](media/intro.jpg)
