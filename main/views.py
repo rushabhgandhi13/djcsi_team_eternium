@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from django.shortcuts import render, redirect
 from PIL import Image, ImageDraw
-from .models import Imag, Point, SegmentedImages
+from .models import Imag, Point, SegmentedImages, Suggestions
 from mmseg.apis import inference_model, init_model, show_result_pyplot
 from segment_anything import sam_model_registry, SamPredictor, SamAutomaticMaskGenerator
 
@@ -29,6 +29,21 @@ sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
 sam.to(device=device)
 predictor = SamPredictor(sam)
 print("Loaded SAM")
+
+COLOR_THEMES = [
+["eec9d2", "f4b6c2", "f6abb6"],
+["011f4b", "005b96", "b3cde0"],
+["3da4ab", "f6cd61", "fe8a71"],
+["adcbe3", "e7eff6", "63ace5"],
+["fec8c1", "fad9c1", "f9caa7"],
+["009688", "35a79c", "54b2a9"],
+["fdf498", "7bc043", "0392cf"],
+["ee4035", "f37736", "fdf498"],
+["ffffff", "d0e1f9", "4d648d"],
+["eeeeee", "dddddd", "cccccc"],
+["ff6f69", "ffcc5c", "88d8b0"],
+["008744", "0057e7", "ffa700"]
+]
 
 
 # PASCAL Context 
@@ -227,4 +242,69 @@ def sam_segment(request, pk):
 def suggestions(request, pk):
     img=Imag.objects.get(img_id=pk)
     path=Imag.objects.all()
-    return render(request, 'main/suggestions.html', {'pk': pk, 'img': img, 'paths': path})
+    points = Point.objects.filter(img_id = pk)
+    
+    if Suggestions.objects.filter(sugImg_id = img).exists():
+        check = True
+    else:
+        img_rel_path = img.image.url    
+        img_abs_path = f".{img_rel_path}"
+        
+        print("Transforming image")
+        image = cv2.imread(img_abs_path)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        predictor.set_image(image)
+        print("Transforming image done")
+        
+        w, h = image.shape[0], image.shape[1]
+        print(image.shape[0])
+        print([[i.x, i.y] for i in points])
+        p = [[(h/700) * i.x, (w/700) *i.y] for i in points]
+        print(p)
+
+        for theme in COLOR_THEMES: 
+            print(theme)
+            pil_image = Image.fromarray(image)
+            count = 0 
+            for point, j in zip(p, points):
+                input_point = np.array([point])
+                input_label = np.array([1])
+                
+                print("Predicting...")
+                mask, scores, logits = predictor.predict(
+                    point_coords=input_point,
+                    point_labels=input_label,
+                    multimask_output=False,
+                )
+                mask = np.squeeze(mask, axis=0)
+                
+                mask_55 = np.zeros_like(mask)
+                mask_55[mask == True] = 255
+
+                color = tuple(int(theme[count][i:i+2], 16) for i in (0, 2, 4))
+                count += 1
+                
+                colors = [(0, 0, 0), color]
+                cmap = mcolors.ListedColormap(colors)
+
+                # Plot the mask on top of the image
+                masked_image = cmap(mask_55)
+                masked_image = masked_image[:,:,:3]
+                
+                draw = ImageDraw.Draw(pil_image)
+                mask_pil = Image.fromarray(mask_55)
+                draw.bitmap((0, 0), mask_pil, fill=color)
+
+
+            # Show the image
+            fname = os.path.basename(img_abs_path)
+            fname = fname.split('.')[0] + f"_{color}.{fname.split('.')[1]}"
+            fname = os.path.join("images", "suggestions", fname)
+            print(fname)
+            pil_image.save(fname)
+            
+            s_img = Suggestions(sugImg_id=img, sugImage=fname)
+            s_img.save()
+
+    paths = Suggestions.objects.filter(sugImg_id=pk)
+    return render(request, 'main/suggestions.html', {'pk': pk, 'img': img, 'paths': paths})
