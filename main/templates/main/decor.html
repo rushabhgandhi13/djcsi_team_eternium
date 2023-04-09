@@ -96,6 +96,66 @@
     margin-top: 10%;
     margin-bottom: 10%;
   }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
 </style>
 </head>
 
@@ -155,11 +215,20 @@
           {% csrf_token %}
           <h3>Please select a colour</h3>
           <br>
+          <div style="display: flex; flex-direction: row; justify-content: space-between;">
+            <p>Search Colour</p>
+          <label class="switch">
+            <input type="checkbox" name="colorchecker" onchange="clchecker()">
+            <span class="slider round"></span>
+          </label> 
+          <p>Select Colour</p>
+          </div>
+          <br>
           {% for i in colorMap %}
           <div style="display: flex; flex-direction: row; justify-content: space-between;">
             {% comment %} <label for="select-state">Search a colour: </label> {% endcomment %}
 
-          <select name="col1" class="selectpicker des" data-show-subtext="false" data-live-search="true"
+          <select  name="col1" class="selectpicker des colorselect" data-show-subtext="false" data-live-search="true"
             style="-webkit-appearance: none;" id="select-state" placeholder="Pick a state...">
             <option value="">Select a color...</option>
             <option value="0,0,0">black</option>
@@ -326,21 +395,24 @@
             <option value="255,255,0">Yellow</option>
             <option value="154,205,50">Yellowgreen</option>
           </select>
-          <p>Or</p>
+          
           {% comment %} <label>Select color: </label> {% endcomment %}
-          <input type="color" name="color" value="{{i}}" />
+          <input type="color" class="incolor" name="color" value="{{i}}" disabled />
           </div>
           {% endfor %}
+           
           <br>
           
 
           <br>
-          <button class="btn btn-outline-danger" type="sumbit">Apply</button>
+          <button class="btn btn-outline-danger" id="checkbutton" type="sumbit">Apply</button>
 
 
 
 
         </form>
+
+        <a class="btn btn-outline-danger" style="margin-top: 15px" href="{% url 'suggestions' pk=pk %}">Our Suggestions</a>
 
 
       </div>
@@ -480,6 +552,37 @@ inputDiv.addEventListener("drop", () => {
       document.getElementById("fileList").appendChild(div);
     }
   }
+
+  function clchecker(){
+
+    if (document.getElementsByName("colorchecker")[0].checked == true) {
+
+      let elems = document.getElementsByClassName("colorselect");
+      console.log(elems)
+      for (let i = 0; i < elems.length; i++) {
+        elems[i].setAttribute("disabled","disabled")  
+      }
+      let el = document.getElementsByClassName("incolor");
+
+      for (let i = 0; i < el.length; i++) {
+        el[i].removeAttribute("disabled")
+      }
+        
+    } else {
+
+      let elems = document.getElementsByClassName("incolor");
+      for (let i = 0; i < elems.length; i++) {
+        elems[i].setAttribute("disabled","")  
+      }
+      let el = document.getElementsByClassName("colorselect");
+      for (let i = 0; i < el.length; i++) {
+        el[i].removeAttribute("disabled")
+      }
+    }
+
+  }
+
+
   </script>
 
 
