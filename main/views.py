@@ -310,10 +310,12 @@ def suggestions(request, pk):
         # for texture
         url = "main/" + staticfiles_storage.url('textures')
         textures = os.listdir(url)
-        point = random.choice(p)
-        input_point = np.array([point])
-        input_label = np.array([1])
+        
         for i, texture in enumerate(textures):
+            point = random.choice(p)
+            print(point)
+            input_point = np.array([point])
+            input_label = np.array([1])
             pil_image = Image.fromarray(image)
             texture_path = os.path.join(url, texture)
             texture_img = Image.open(texture_path)
