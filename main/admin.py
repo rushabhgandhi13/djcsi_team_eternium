@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Imag, Point, SegmentedImages
+from .models import Imag, Point, SegmentedImages, Suggestions
 
 @admin.register(Imag)
 class ImagAdmin(admin.ModelAdmin):
@@ -15,3 +15,7 @@ class PointAdmin(admin.ModelAdmin):
 @admin.register(SegmentedImages)
 class SegmentedImagesAdmin(admin.ModelAdmin):
 	list_display = ("segImg_id", "segmentedImage")
+ 
+@admin.register(Suggestions)
+class SegmentedImagesAdmin(admin.ModelAdmin):
+	list_display = ("sugImg_id", "sugImage")

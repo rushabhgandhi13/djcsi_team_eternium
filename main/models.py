@@ -21,3 +21,9 @@ class SegmentedImages(models.Model):
     segmentedImage = models.ImageField(upload_to='images/results/', null=True, blank=True)
     class Meta:
         db_table = "segmented_images"
+        
+class Suggestions(models.Model):
+    sugImg_id = models.ForeignKey(Imag, on_delete=models.CASCADE, null=True, blank=True)
+    sugImage = models.ImageField(upload_to='images/suggestions/', null=True, blank=True)
+    class Meta:
+        db_table = "suggested_images"

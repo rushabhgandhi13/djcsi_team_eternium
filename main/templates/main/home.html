@@ -76,10 +76,55 @@
      margin-bottom: 10%;
 }
 
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  overflow: hidden;
+  background: #fff;
+  transition: all 0.6s ease-out;
+}
 
+#preloader:before {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  border: 6px solid #fff;
+  border-color: var(--color-primary) transparent var(--color-primary) transparent;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: animate-preloader 1.5s linear infinite;
+  animation: animate-preloader 1.5s linear infinite;
+}
+
+@-webkit-keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
     </style>
 </head>
 <body>
+
+  
+  <div id="preloader">
+  </div>
   <div class="header" id="topheader">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
          
@@ -199,6 +244,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
  
   <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+      "use strict";
+    
+    const preloader = document.querySelector('#preloader');
+    if (preloader) {
+      window.addEventListener('load', () => {
+        preloader.remove();
+      });
+    }})
     let coords=[];
     let final_coords="";
     
@@ -309,8 +364,8 @@ $(document).ready(function () {
     console.log(coords);
     }
 
-    
 
+  
   
   </script>
 
