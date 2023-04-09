@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from django.shortcuts import render, redirect
 from PIL import Image, ImageDraw
+from django.contrib.staticfiles.storage import staticfiles_storage
 from .models import Imag, Point, SegmentedImages, Suggestions
 from mmseg.apis import inference_model, init_model, show_result_pyplot
 from segment_anything import sam_model_registry, SamPredictor, SamAutomaticMaskGenerator
@@ -61,8 +62,8 @@ wall_indx = CLASSES.index("wall") - 1
 
 def home(request):
     if request.method=="POST":
-        img=Imag()
-        img.image=request.FILES.get('roomimage')
+        img=Imag() 
+        img.image=request.FILES.get('roomimage') 
         img.save()
         sPoints = request.POST.get('coords').split('|')
         coords = [[int(j) for j in i.split(',')] for i in sPoints if len(i) != 0]
@@ -299,6 +300,43 @@ def suggestions(request, pk):
             # Show the image
             fname = os.path.basename(img_abs_path)
             fname = fname.split('.')[0] + f"_{color}.{fname.split('.')[1]}"
+            fname = os.path.join("images", "suggestions", fname)
+            print(fname)
+            pil_image.save(fname)
+            
+            s_img = Suggestions(sugImg_id=img, sugImage=fname)
+            s_img.save()
+
+        # for texture
+        url = "main/" + staticfiles_storage.url('textures')
+        textures = os.listdir(url)
+        point = random.choice(p)
+        input_point = np.array([point])
+        input_label = np.array([1])
+        for i, texture in enumerate(textures):
+            pil_image = Image.fromarray(image)
+            texture_path = os.path.join(url, texture)
+            texture_img = Image.open(texture_path)
+            texture_img = texture_img.resize(pil_image.size)
+            
+            mask, scores, logits = predictor.predict(
+                point_coords=input_point,
+                point_labels=input_label,
+                multimask_output=False,
+            )
+            mask = np.squeeze(mask, axis=0)
+            
+            mask_55 = np.zeros_like(mask)
+            mask_55[mask == True] = 255
+            
+            masked_image = masked_image[:,:,:3]
+            mask_pil = Image.fromarray(mask_55)
+            
+            pil_image = Image.composite(texture_img, pil_image, mask_pil)   
+            
+            # Show the image
+            fname = os.path.basename(img_abs_path)
+            fname = fname.split('.')[0] + f"_texture_{i}.{fname.split('.')[1]}"
             fname = os.path.join("images", "suggestions", fname)
             print(fname)
             pil_image.save(fname)
