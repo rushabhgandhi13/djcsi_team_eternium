@@ -131,6 +131,7 @@ def sam_segment(request, pk):
     img=Imag.objects.get(img_id=pk)
     img_rel_path = img.image.url    
     img_abs_path = f".{img_rel_path}"
+    mask_55 = []
     check = False
     color_check = False
     if SegmentedImages.objects.filter(segImg_id = img).exists():
@@ -189,10 +190,25 @@ def sam_segment(request, pk):
                 point_labels=input_label,
                 multimask_output=False,
             )
+            # print(f"mask length: {len(str(mask))}")
             mask = np.squeeze(mask, axis=0)
             
             mask_55 = np.zeros_like(mask)
-            mask_55[mask == True] = 255
+
+            
+            # create a gray scale image from an rgb image
+            image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            # print(image_gray.shape)
+            
+
+            mask_55[mask == True] = 128
+            # print(mask_55)
+            # print(mask_55.shape)
+            # print(mask_55[0])
+            # print(mask_55[0][0])
+            # for i in range(0, mask.shape[0]):
+            #     for k in range(0, mask.shape[1]):
+            #         mask_55[i][k] = 175/image_gray[i][k] * 255
 
             if not color_check:
             # wall color
@@ -217,12 +233,15 @@ def sam_segment(request, pk):
             
             draw = ImageDraw.Draw(pil_image)
             mask_pil = Image.fromarray(mask_55)
+            # print(mask_pil[0])
+            # print(mask_pil[0][0])
             draw.bitmap((0, 0), mask_pil, fill=color)
             
             # ax.imshow(masked_image, alpha=0.5)
             # ax.set_axis_off()
 
         # Show the image
+
         fname = os.path.basename(img_abs_path)
         fname = fname.split('.')[0] + f"_{color}.{fname.split('.')[1]}"
         fname = os.path.join("images", "results", fname)
@@ -231,6 +250,7 @@ def sam_segment(request, pk):
         segImg = SegmentedImages()
         segImg.segImg_id = img
         segImg.segmentedImage = fname
+        segImg.segmentedImageMask = np.array_str(mask_55)
         segImg.save()
         pil_image.save(fname)
 

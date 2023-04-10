@@ -19,6 +19,7 @@ class Point(models.Model):
 class SegmentedImages(models.Model):
     segImg_id = models.ForeignKey(Imag, on_delete=models.CASCADE, null=True, blank=True)
     segmentedImage = models.ImageField(upload_to='images/results/', null=True, blank=True)
+    segmentedImageMask = models.CharField(max_length=50000, default="")
     class Meta:
         db_table = "segmented_images"
         
