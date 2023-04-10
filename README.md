@@ -34,6 +34,11 @@ Clone the project -
 ```
   $ git clone https://github.com/rushabhgandhi13/djcsi_team_eternium.git
 ```
+
+Download the SAM model from the [link](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth)
+``` 
+ $ create a folder named checkpoints inside main/static directory and paste the model file in there
+```
   
 - ### Start the server -
 ```
