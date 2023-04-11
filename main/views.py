@@ -132,6 +132,7 @@ def sam_segment(request, pk):
     img_rel_path = img.image.url    
     img_abs_path = f".{img_rel_path}"
     mask_55 = []
+    previous_mask = np.array([])
     check = False
     color_check = False
     if SegmentedImages.objects.filter(segImg_id = img).exists():
@@ -153,6 +154,9 @@ def sam_segment(request, pk):
                 points[i].color = '#%02x%02x%02x' % colors[i]
                 points[i].save()
             print(colors)
+        previous_mask = (SegmentedImages.objects.get(segImg_id = img))
+        # print(np.frombuffer(previous_mask.segmentedImageMask, dtype=np.uint8))
+        previous_mask = np.frombuffer(previous_mask.segmentedImageMask.encode('ISO-8859-1'), dtype=np.uint8)
         SegmentedImages.objects.get(segImg_id = img).delete()
         check = False
         color_check = True
@@ -163,11 +167,15 @@ def sam_segment(request, pk):
     if check:
         pass
     else:
-        print("Transforming image")
         image = cv2.imread(img_abs_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        print("Transforming image")
         predictor.set_image(image)
         print("Transforming image done")
+        # if previous_mask.size == 0:
+        #     print("Transforming image")
+        #     predictor.set_image(image)
+        #     print("Transforming image done")
         
         w, h = image.shape[0], image.shape[1]
         print(image.shape[0])
@@ -185,6 +193,15 @@ def sam_segment(request, pk):
             input_label = np.array([1])
             
             print("Predicting...")
+
+            # if previous_mask.size != 0:
+            #     mask = previous_mask
+            # else:
+            #     mask, scores, logits = predictor.predict(
+            #         point_coords=input_point,
+            #         point_labels=input_label,
+            #         multimask_output=False,
+            #     )
             mask, scores, logits = predictor.predict(
                 point_coords=input_point,
                 point_labels=input_label,
@@ -250,7 +267,7 @@ def sam_segment(request, pk):
         segImg = SegmentedImages()
         segImg.segImg_id = img
         segImg.segmentedImage = fname
-        segImg.segmentedImageMask = np.array_str(mask_55)
+        segImg.segmentedImageMask = mask.tobytes().decode('ISO-8859-1')
         segImg.save()
         pil_image.save(fname)
 
