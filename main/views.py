@@ -131,8 +131,8 @@ def sam_segment(request, pk):
     img=Imag.objects.get(img_id=pk)
     img_rel_path = img.image.url    
     img_abs_path = f".{img_rel_path}"
-    mask_55 = []
-    previous_mask = np.array([])
+    # mask_55 = []
+    # previous_mask = np.array([])
     check = False
     color_check = False
     if SegmentedImages.objects.filter(segImg_id = img).exists():
@@ -156,7 +156,7 @@ def sam_segment(request, pk):
             print(colors)
         previous_mask = (SegmentedImages.objects.get(segImg_id = img))
         # print(np.frombuffer(previous_mask.segmentedImageMask, dtype=np.uint8))
-        previous_mask = np.frombuffer(previous_mask.segmentedImageMask.encode('ISO-8859-1'), dtype=np.uint8)
+        # previous_mask = np.frombuffer(previous_mask.segmentedImageMask.encode('ISO-8859-1'), dtype=np.uint8)
         SegmentedImages.objects.get(segImg_id = img).delete()
         check = False
         color_check = True
@@ -267,7 +267,7 @@ def sam_segment(request, pk):
         segImg = SegmentedImages()
         segImg.segImg_id = img
         segImg.segmentedImage = fname
-        segImg.segmentedImageMask = mask.tobytes().decode('ISO-8859-1')
+        # segImg.segmentedImageMask = mask.tobytes().decode('ISO-8859-1')
         segImg.save()
         pil_image.save(fname)
 
